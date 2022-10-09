@@ -1,0 +1,40 @@
+{
+  "name": "buy-me-anything",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/**"
+  ],
+  "scripts": {
+    "start": "lerna run start",
+    "start:main": "lerna run start --scope=main",
+    "test": "lerna run test",
+    "test:main": "lerna run test --scope=main",
+    "build": "lerna run build",
+    "build:main": "lerna run build --scope=main",
+    "typecheck": "lerna exec -- tsc --noEmit",
+    "lint": "lerna exec -- eslint . --ext .js,.ts"
+  },
+  "packageManager": "yarn@3.1.1",
+  "devDependencies": {
+    "@nrwl/nx-cloud": "latest",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.14",
+    "@types/jest": "^29.1.2",
+    "@types/node": "^18.8.3",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
+    "eslint": "^8.25.0",
+    "jest": "^29.1.2",
+    "lerna": "^5.6.1",
+    "nx": "14.8.3",
+    "ts-jest": "^29.0.3",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  }
+}
