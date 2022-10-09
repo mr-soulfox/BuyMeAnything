@@ -1,0 +1,26 @@
+app = "buy-me-anything"
+kill_timeout = 120
+
+[build]
+builder = "paketobuilpacks/builder:base"
+buildpacks = ["gcr.io/paketo-buildpacks/nodejs"]
+
+[processes]
+web = "yarn:main production"
+
+[[services.ports]]
+force_https = true
+handlers = ["http"]
+port = 80
+
+[[services.ports]]
+handlers = ["tls", "http"]
+port = "443"
+
+[[services.http_checks]]
+interval = 10000
+method = "get"
+path = "/health"
+protocol = "http"
+timeout = 2000
+tls_skip_verify = false
