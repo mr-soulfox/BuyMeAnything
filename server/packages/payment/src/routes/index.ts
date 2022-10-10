@@ -7,6 +7,6 @@ export const routes = express.Router()
 routes.use(logRequest)
 
 routes.get('/', (req, res) => {
-	res.send('<h1>HI from Main API callout' + process.pid + '</h1>')
+	res.send('<h1>HI from Payment API callout' + process.pid + '</h1>')
 	cluster.worker?.kill()
 })

@@ -7,11 +7,8 @@
   ],
   "scripts": {
     "start": "lerna run start",
-    "start:main": "lerna run start --scope=main",
     "test": "lerna run test",
-    "test:main": "lerna run test --scope=main",
     "build": "lerna run build",
-    "build:main": "lerna run build --scope=main",
     "typecheck": "lerna exec -- tsc --noEmit",
     "lint": "lerna exec -- eslint . --ext .js,.ts"
   },

@@ -7,7 +7,7 @@ import os from 'os'
 
 dotenv.config()
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3003
 const app = express()
 const numCpu = os.cpus().length
 
@@ -25,7 +25,7 @@ if (cluster.isPrimary) {
 } else {
 	app.listen(port, () => {
 		console.log(
-			`🚀 @buy-me-anything/main [${process.pid}] listen on http://localhost:${port}`
+			`🚀 @buy-me-anything/payment [${process.pid}] listen on http://localhost:${port}`
 		)
 	})
 }
