@@ -1,8 +1,8 @@
-app = "bma"
+app = "bma-mobile"
 kill_timeout = 120
 
 [build]
 builder = "paketobuilpacks/builder:base"
 buildpacks = ["gcr.io/paketo-buildpacks/nodejs"]
 
-#continue configuration
+# Continue configuration
