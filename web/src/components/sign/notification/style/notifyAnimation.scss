@@ -1,0 +1,12 @@
+@keyframes notify {
+	from {
+		top: -70px;
+	}
+	to {
+		top: 12px;
+	}
+}
+
+.notification-container {
+	animation: notify 0.5s ease-in-out forwards;
+}

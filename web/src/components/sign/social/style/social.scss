@@ -1,0 +1,26 @@
+.social-box-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	.social-box {
+		width: 48px;
+		height: 48px;
+		border-radius: 6px;
+		background-color: #222831;
+		margin: 16px 24px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: background-color 0.35s ease-in-out;
+
+		& > img {
+			width: 30px;
+		}
+
+		&:hover {
+			background-color: #464c54;
+		}
+	}
+}

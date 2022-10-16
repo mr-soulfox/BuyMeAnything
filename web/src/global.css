@@ -1,11 +1,16 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', 'Inter', sans-serif;
+	overflow-x: hidden;
+}
+
 html {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins"; 
+	background-color: #2c3639;
 }
 
 a {
-  color: #000;
-  text-decoration: none;
+	color: #000;
+	text-decoration: none;
 }

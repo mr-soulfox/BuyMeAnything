@@ -1,0 +1,25 @@
+.back-button-container {
+	width: 38px;
+	margin: 16px 0 0 16px;
+	position: absolute;
+
+	.back-button-circle {
+		width: 38px;
+		height: 38px;
+		border-radius: 50%;
+		padding: 5px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		&:hover {
+			cursor: pointer;
+			transition: background-color 0.25s ease-in-out;
+		}
+	}
+
+	.back-button-arrow {
+		width: 37px;
+	}
+}

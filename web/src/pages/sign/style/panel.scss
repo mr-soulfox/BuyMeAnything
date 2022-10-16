@@ -1,0 +1,42 @@
+.panel-container {
+	width: 574px;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: #222831;
+
+	.panel-logo-group {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		.panel-logo {
+			width: 221px;
+		}
+
+		.panel-title {
+			font-family: 'Inter';
+			font-weight: bold;
+			font-size: 32px;
+			text-transform: uppercase;
+			margin-top: 16px;
+			color: #ddd;
+		}
+	}
+
+	.panel-description-container {
+		text-align: center;
+		padding: 0 40px;
+		margin-top: 16px;
+
+		.panel-description {
+			font-family: 'Poppins';
+			font-weight: 500;
+			font-size: 22px;
+			color: #e1e1e6;
+		}
+	}
+}

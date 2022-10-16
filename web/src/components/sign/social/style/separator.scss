@@ -1,0 +1,15 @@
+.social-separator-container {
+	margin: 16px auto 0 auto;
+
+	.social-middle-word {
+		font-size: 12px;
+		font-family: 'Inter';
+		font-weight: 500;
+		text-transform: uppercase;
+		color: #e1e1e6;
+		text-align: center;
+		background: linear-gradient(#7c7c7c 0 0) left, linear-gradient(#7c7c7c 0 0) right;
+		background-size: 40% 1px;
+		background-repeat: no-repeat;
+	}
+}
