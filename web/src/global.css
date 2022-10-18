@@ -16,3 +16,11 @@ a {
 	color: #000;
 	text-decoration: none;
 }
+
+img {
+	user-select: none;
+}
+
+::selection {
+	background-color: #a27b5c;
+}

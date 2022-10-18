@@ -5,6 +5,7 @@ const initialState = {
 	password: '',
 	create: true,
 	rememberMe: false,
+	reset: false,
 }
 
 interface InputSlice {
@@ -21,6 +22,9 @@ export const inputSlice = createSlice({
 		},
 		setCreate: (state, action) => {
 			state.create = action.payload
+		},
+		setReset: (state, action) => {
+			state.reset = action.payload
 		},
 		setValue: (state, action) => {
 			const actObject: InputSlice = JSON.parse(action.payload)

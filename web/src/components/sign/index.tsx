@@ -1,4 +1,4 @@
-import {BackButton} from './backButton'
+import {BackButton} from '../global/backButton'
 import {Notification} from './notification'
 
 interface signProps {
