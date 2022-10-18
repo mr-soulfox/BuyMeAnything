@@ -5,14 +5,19 @@ import {InputCheckbox} from '../inputs/checkbox'
 import {useNavigate} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import {Social} from '../social'
+import {useDispatch} from 'react-redux'
+import {setCreate} from '../../../store/slice/inputSlice'
 import {Loading} from '../../global/loading'
 import './style/index.scss'
 
 export function Form(props: {typeOfSign: string | undefined}) {
 	const navigate = useNavigate()
 	const [loading, setLoading] = useState(true)
+	const dispatch = useDispatch()
 
 	useEffect(() => {
+		dispatch(setCreate(props.typeOfSign === 'up' ? true : false))
+
 		setTimeout(() => {
 			setLoading(!loading)
 		}, 1500)

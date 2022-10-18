@@ -1,6 +1,17 @@
+import {useDispatch} from 'react-redux'
+import {useState, useEffect} from 'react'
+import {toggleRememberMe} from '../../../store/slice/inputSlice'
 import './style/checkbox.scss'
 
 export function InputCheckbox() {
+	const cacheCheck = localStorage.getItem('form-remember-me')
+	const [check, setCheck] = useState(cacheCheck === 'true' ? true : false)
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		localStorage.setItem('form-remember-me', String(check))
+	}, [check])
+
 	return (
 		<div className='input-checkbox-container'>
 			<input
@@ -8,6 +19,11 @@ export function InputCheckbox() {
 				name='rememberMe'
 				id='rememberMe'
 				className='input-checkbox'
+				onClick={() => {
+					dispatch(toggleRememberMe())
+					setCheck(!check)
+				}}
+				checked={check}
 			/>
 
 			<label htmlFor='rememberMe' className='input-checkbox-label'>

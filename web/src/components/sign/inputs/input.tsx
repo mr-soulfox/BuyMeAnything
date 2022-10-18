@@ -1,5 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {inputProps} from '.'
+import {useDispatch} from 'react-redux'
+import {setValue} from '../../../store/slice/inputSlice'
 
 interface inputBoxProps extends inputProps {
 	changeValue: React.Dispatch<React.SetStateAction<string>>
@@ -9,6 +11,12 @@ interface inputBoxProps extends inputProps {
 
 export function InputBox(props: inputBoxProps) {
 	const [validate, setValidate] = useState(props.validate || false)
+	const [actualValue, setActualValue] = useState('')
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		setActualValue(localStorage.getItem(`form-${props.type}`) || '')
+	}, [])
 
 	return (
 		<div
@@ -48,9 +56,22 @@ export function InputBox(props: inputBoxProps) {
 						setValidate(false)
 					}
 
+					setActualValue(ev.target.value)
+					localStorage.setItem(`form-${props.type}`, ev.target.value)
+
+					dispatch(
+						setValue(
+							JSON.stringify({
+								type: props.type,
+								value: ev.target.value,
+							})
+						)
+					)
+
 					props.changeValue(ev.target.value.trim())
 				}}
 				placeholder={props.placeholder}
+				value={actualValue}
 			/>
 
 			{props.typeOfSign === 'up' && validate && (

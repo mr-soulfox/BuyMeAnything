@@ -4,24 +4,40 @@ import github from '../../../assets/github.svg'
 import {useEffect, useState} from 'react'
 import './style/index.scss'
 
-type temp_socialType = Array<JSX.Element>
+type SocialType = Array<JSX.Element>
 
 export function Social() {
-	const abc: temp_socialType = []
-	const [temp_social, setTemp_social] = useState(abc)
-	const temp_socialList = ['Google', 'Facebook', 'Github']
-	const temp_socialIconList = [google, facebook, github]
+	const socialType: SocialType = []
+	const [social, setSocial] = useState(socialType)
+	const socialList = [{Google: google}, {Facebook: facebook}, {Github: github}]
+	const CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID
 
 	useEffect(() => {
-		const list = temp_socialList.map((social, i) => {
+		const list = socialList.map((social) => {
+			const icon = Object.values(social)
+			const name = Object.keys(social)
+
 			return (
-				<div className='social-box'>
-					<img src={temp_socialIconList[Number(i)]} alt={social} title={social} />
+				<div
+					className='social-box'
+					id={name[0]}
+					onClick={(ev) => {
+						if (ev.currentTarget.id == 'Github') {
+							window.location.assign(
+								'https://github.com/login/oauth/authorize?client_id=' + CLIENT_ID
+							)
+							return
+						}
+
+						alert('Please try with Github')
+					}}
+				>
+					<img src={icon[0]} alt={name[0]} title={name[0]} />
 				</div>
 			)
 		})
 
-		setTemp_social(list)
+		setSocial(list)
 	}, [])
 
 	return (
@@ -30,14 +46,7 @@ export function Social() {
 				<p className='social-middle-word'>or</p>
 			</div>
 
-			<div
-				className='social-box-container'
-				onClick={() => {
-					alert('Social Login')
-				}}
-			>
-				{temp_social}
-			</div>
+			<div className='social-box-container'>{social}</div>
 		</div>
 	)
 }

@@ -4,8 +4,8 @@ import {useParams} from 'react-router-dom'
 import {SignComponent} from '../../components/sign'
 import logoDark from '../../assets/logoDark.svg'
 import successSign from '../../assets/successSign.svg'
-import './style/index.scss'
 import {Form} from '../../components/sign/form'
+import './style/index.scss'
 
 export function SignInUp() {
 	const {typeOfSign} = useParams()
@@ -15,6 +15,7 @@ export function SignInUp() {
 	useEffect(() => {
 		if (!(typeOfSign === 'in' || typeOfSign === 'up')) {
 			navigate('/404', {replace: true})
+			return
 		}
 	}, [])
 
