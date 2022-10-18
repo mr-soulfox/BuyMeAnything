@@ -26,10 +26,14 @@ export function Social() {
 							window.location.assign(
 								'https://github.com/login/oauth/authorize?client_id=' + CLIENT_ID
 							)
+
+							localStorage.removeItem('form-e-mail')
+							localStorage.removeItem('form-password')
+							localStorage.removeItem('form-remember-me')
 							return
 						}
 
-						alert('Please try with Github')
+						alert('Please, try only with Github')
 					}}
 				>
 					<img src={icon[0]} alt={name[0]} title={name[0]} />
