@@ -33,7 +33,7 @@ export function Form(props: {typeOfSign: string | undefined}) {
 						<Inputs
 							type='e-mail'
 							icon={email}
-							placeholder='Joe@example.com'
+							placeholder='Your email'
 							typeOfSign={props.typeOfSign}
 						/>
 						<Inputs

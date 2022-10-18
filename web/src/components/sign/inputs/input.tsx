@@ -4,10 +4,11 @@ import {inputProps} from '.'
 interface inputBoxProps extends inputProps {
 	changeValue: React.Dispatch<React.SetStateAction<string>>
 	iconValidate: string
+	validate?: boolean
 }
 
 export function InputBox(props: inputBoxProps) {
-	const [validate, setValidate] = useState(false)
+	const [validate, setValidate] = useState(props.validate || false)
 
 	return (
 		<div

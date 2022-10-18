@@ -30,7 +30,14 @@ export function Social() {
 				<p className='social-middle-word'>or</p>
 			</div>
 
-			<div className='social-box-container'>{temp_social}</div>
+			<div
+				className='social-box-container'
+				onClick={() => {
+					alert('Social Login')
+				}}
+			>
+				{temp_social}
+			</div>
 		</div>
 	)
 }
