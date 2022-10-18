@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import {useNavigate, useSearchParams} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import {useParams} from 'react-router-dom'
 import {SignComponent} from '../../components/sign'
 import logoDark from '../../assets/logoDark.svg'
@@ -11,6 +11,7 @@ export function SignInUp() {
 	const {typeOfSign} = useParams()
 	const navigate = useNavigate()
 	const [notify, setNotify] = useState(false)
+
 	useEffect(() => {
 		if (!(typeOfSign === 'in' || typeOfSign === 'up')) {
 			navigate('/404', {replace: true})

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {inputProps} from '.'
 
 interface inputBoxProps extends inputProps {
@@ -7,6 +7,8 @@ interface inputBoxProps extends inputProps {
 }
 
 export function InputBox(props: inputBoxProps) {
+	const [validate, setValidate] = useState(false)
+
 	return (
 		<div
 			className='form-input-container'
@@ -39,12 +41,18 @@ export function InputBox(props: inputBoxProps) {
 					ev.target.type = 'password'
 				}}
 				onChange={(ev) => {
+					if (ev.target.value.length > 0) {
+						setValidate(true)
+					} else {
+						setValidate(false)
+					}
+
 					props.changeValue(ev.target.value.trim())
 				}}
 				placeholder={props.placeholder}
 			/>
 
-			{props.typeOfSign === 'up' && (
+			{props.typeOfSign === 'up' && validate && (
 				<img
 					src={props.iconValidate}
 					alt='validate'
