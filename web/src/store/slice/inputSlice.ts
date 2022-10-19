@@ -6,6 +6,7 @@ const initialState = {
 	create: true,
 	rememberMe: false,
 	reset: false,
+	valid: false,
 }
 
 interface InputSlice {
@@ -26,6 +27,9 @@ export const inputSlice = createSlice({
 		setReset: (state, action) => {
 			state.reset = action.payload
 		},
+		setValid: (state, action) => {
+			state.valid = action.payload
+		},
 		setValue: (state, action) => {
 			const actObject: InputSlice = JSON.parse(action.payload)
 
@@ -38,5 +42,6 @@ export const inputSlice = createSlice({
 	},
 })
 
-export const {toggleRememberMe, setCreate, setValue} = inputSlice.actions
+export const {toggleRememberMe, setCreate, setValue, setValid, setReset} =
+	inputSlice.actions
 export default inputSlice.reducer
