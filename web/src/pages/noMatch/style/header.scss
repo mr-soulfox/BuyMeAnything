@@ -1,0 +1,21 @@
+.header-content-container {
+	position: absolute;
+	top: 16px;
+	left: 16px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+
+	.header-content-icon {
+		width: 64px;
+		margin-right: 16px;
+	}
+
+	.header-content-text {
+		font-family: 'Inter';
+		font-size: 32px;
+		font-weight: bold;
+		color: #e1e1e6;
+	}
+}

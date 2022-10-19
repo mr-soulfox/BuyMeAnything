@@ -1,0 +1,22 @@
+.no-match-back-button {
+	font-family: 'Poppins';
+	font-size: 16px;
+	font-weight: 600;
+	color: #e1e1e6;
+	background-color: #a27b5c;
+	padding: 12px 16px;
+	text-align: center;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
+	text-transform: uppercase;
+
+	&:hover {
+		background-color: #b09e8f;
+	}
+
+	&:focus {
+		outline: none;
+	}
+}
