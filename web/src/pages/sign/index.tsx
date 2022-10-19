@@ -21,40 +21,49 @@ export function SignInUp() {
 
 	return (
 		<>
-			<SignComponent
-				notify={notify}
-				childProps={{
-					icon: successSign,
-					status: true,
-				}}
-			/>
+			<header>
+				<SignComponent
+					notify={notify}
+					childProps={{
+						icon: successSign,
+						status: true,
+					}}
+				/>
 
-			<span
-				className='need-help-link'
-				onClick={() => {
-					navigate('/help')
-				}}
-			>
-				Need help?
-			</span>
+				<span
+					className='need-help-link'
+					onClick={() => {
+						navigate('/help')
+					}}
+				>
+					Need help?
+				</span>
+			</header>
 
-			<div className='sign-interface-container'>
-				<div className='panel-container'>
-					<div className='panel-logo-group'>
-						<img src={logoDark} alt='logo' className='panel-logo' />
+			<main>
+				<div className='sign-interface-container'>
+					<header>
+						<div className='panel-container'>
+							<div className='panel-logo-group'>
+								<img src={logoDark} alt='logo' className='panel-logo' />
 
-						<span className='panel-title'>buy me anything</span>
-					</div>
+								<span className='panel-title'>buy me anything</span>
+							</div>
 
-					<div className='panel-description-container'>
-						<span className='panel-description'>
-							Free wallet to receive donate from any people, buy anything for you.
-						</span>
-					</div>
+							<div className='panel-description-container'>
+								<span className='panel-description'>
+									Free wallet to receive donate from any people, buy anything for
+									you.
+								</span>
+							</div>
+						</div>
+					</header>
+
+					<main>
+						<Form typeOfSign={typeOfSign} />
+					</main>
 				</div>
-
-				<Form typeOfSign={typeOfSign} />
-			</div>
+			</main>
 		</>
 	)
 }

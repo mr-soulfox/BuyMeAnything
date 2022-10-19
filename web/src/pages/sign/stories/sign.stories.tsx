@@ -1,5 +1,7 @@
 import {Meta} from '@storybook/react'
+import {Provider} from 'react-redux'
 import {MemoryRouter} from 'react-router-dom'
+import {store} from '../../../store'
 import {SignInUp} from '..'
 
 export default {
@@ -7,9 +9,11 @@ export default {
 	component: SignInUp,
 	decorators: [
 		(Story) => (
-			<MemoryRouter>
-				<Story />
-			</MemoryRouter>
+			<Provider store={store}>
+				<MemoryRouter>
+					<Story />
+				</MemoryRouter>
+			</Provider>
 		),
 	],
 } as Meta
