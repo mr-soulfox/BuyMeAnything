@@ -1,7 +1,22 @@
+import {useDispatch} from 'react-redux'
+import {setReset} from '../../../store/slice/inputSlice'
+import './style/button.scss'
+
 export function ButtonInputBox() {
+	const dispatch = useDispatch()
+
 	return (
 		<>
-			<button>Send</button>
+			<button
+				className='reset-form-button'
+				onClick={() => {
+					localStorage.removeItem('form-e-mail')
+					dispatch(setReset(true))
+					alert('In Construction')
+				}}
+			>
+				Send
+			</button>
 		</>
 	)
 }

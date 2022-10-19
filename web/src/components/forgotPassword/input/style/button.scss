@@ -1,0 +1,22 @@
+.reset-form-button {
+	text-align: center;
+	font-size: 16px;
+	font-family: 'Poppins';
+	font-weight: 700;
+	color: #e1e1e6;
+	background-color: #a27b5c;
+	border-radius: 6px;
+	border: none;
+	padding: 12px 16px;
+	margin-top: 16px;
+	transition: background-color 0.2s ease-in-out;
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+	}
+
+	&:hover {
+		background-color: #b09e8f;
+	}
+}
