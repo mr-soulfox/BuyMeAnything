@@ -1,0 +1,52 @@
+.reset-page-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
+	.reset-header-container {
+		margin-top: 110px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		.reset-image-container {
+			width: 200px;
+			height: 200px;
+			margin-bottom: 16px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 30px;
+			border-radius: 100px;
+
+			.reset-key-image {
+				width: 130px;
+				height: 130px;
+			}
+		}
+
+		.reset-description-container {
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+			margin-bottom: 22px;
+
+			.reset-title {
+				margin-bottom: 16px;
+				font-size: 32px;
+				font-family: 'Inter';
+				font-weight: bold;
+				color: #e1e1e6;
+			}
+
+			.reset-description {
+				color: #ddd;
+				font-size: 16px;
+				font-weight: 500;
+			}
+		}
+	}
+}

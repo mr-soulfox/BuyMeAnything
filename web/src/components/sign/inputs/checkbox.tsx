@@ -4,12 +4,12 @@ import {toggleRememberMe} from '../../../store/slice/inputSlice'
 import './style/checkbox.scss'
 
 export function InputCheckbox() {
-	const cacheCheck = localStorage.getItem('form-remember-me')
+	const cacheCheck = sessionStorage.getItem('form-remember-me')
 	const [check, setCheck] = useState(cacheCheck === 'true' ? true : false)
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		localStorage.setItem('form-remember-me', String(check))
+		sessionStorage.setItem('form-remember-me', String(check))
 	}, [check])
 
 	return (
@@ -19,7 +19,7 @@ export function InputCheckbox() {
 				name='rememberMe'
 				id='rememberMe'
 				className='input-checkbox'
-				onClick={() => {
+				onChange={() => {
 					dispatch(toggleRememberMe())
 					setCheck(!check)
 				}}

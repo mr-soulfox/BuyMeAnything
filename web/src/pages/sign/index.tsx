@@ -59,9 +59,7 @@ export function SignInUp() {
 						</div>
 					</header>
 
-					<main>
-						<Form typeOfSign={typeOfSign} />
-					</main>
+					<Form typeOfSign={typeOfSign} />
 				</div>
 			</main>
 		</>

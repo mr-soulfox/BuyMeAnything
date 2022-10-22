@@ -7,7 +7,7 @@ export function ForgotPassword() {
 	return (
 		<div className='forgot-page-container'>
 			<header>
-				<BackButton />
+				<BackButton location='/sign/in' />
 			</header>
 
 			<main>

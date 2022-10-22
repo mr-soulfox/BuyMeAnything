@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import arrow from '../../../assets/arrowLeft.svg'
 import './style/index.scss'
 
-export function BackButton() {
+export function BackButton(props: {location?: string}) {
 	const navigate = useNavigate()
 	const BackButtonBG = styled.div`
 		background-color: ${'#3f4e4f'};
@@ -18,7 +18,7 @@ export function BackButton() {
 			<BackButtonBG
 				className='back-button-circle'
 				onClick={() => {
-					navigate('/')
+					navigate(props.location || '/')
 				}}
 			>
 				<img

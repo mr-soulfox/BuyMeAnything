@@ -10,7 +10,7 @@ export function ButtonInputBox() {
 			<button
 				className='reset-form-button'
 				onClick={() => {
-					localStorage.removeItem('form-e-mail')
+					sessionStorage.removeItem('form-e-mail')
 					dispatch(setReset(true))
 					alert('In Construction')
 				}}

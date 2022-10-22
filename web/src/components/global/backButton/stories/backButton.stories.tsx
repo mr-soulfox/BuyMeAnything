@@ -3,7 +3,7 @@ import {MemoryRouter} from 'react-router-dom'
 import {BackButton} from '..'
 
 export default {
-	title: 'Components/Sign/BackButton',
+	title: 'Components/Global/BackButton',
 	component: BackButton,
 	decorators: [
 		(Story) => (

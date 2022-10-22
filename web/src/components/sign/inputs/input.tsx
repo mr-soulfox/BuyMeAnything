@@ -15,7 +15,7 @@ export function InputBox(props: inputBoxProps) {
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		setActualValue(localStorage.getItem(`form-${props.type}`) || '')
+		setActualValue(sessionStorage.getItem(`form-${props.type}`) || '')
 	}, [])
 
 	return (
@@ -57,7 +57,7 @@ export function InputBox(props: inputBoxProps) {
 					}
 
 					setActualValue(ev.target.value)
-					localStorage.setItem(`form-${props.type}`, ev.target.value)
+					sessionStorage.setItem(`form-${props.type}`, ev.target.value)
 
 					dispatch(
 						setValue(

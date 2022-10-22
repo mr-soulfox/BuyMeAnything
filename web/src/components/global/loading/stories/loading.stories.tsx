@@ -1,4 +1,4 @@
-import {Loading} from '../loading'
+import {Loading} from '..'
 
 export default {
 	title: 'Components/Global/Loading',

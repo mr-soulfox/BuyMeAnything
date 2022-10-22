@@ -27,9 +27,9 @@ export function Social() {
 								'https://github.com/login/oauth/authorize?client_id=' + CLIENT_ID
 							)
 
-							localStorage.removeItem('form-e-mail')
-							localStorage.removeItem('form-password')
-							localStorage.removeItem('form-remember-me')
+							sessionStorage.removeItem('form-e-mail')
+							sessionStorage.removeItem('form-password')
+							sessionStorage.removeItem('form-remember-me')
 							return
 						}
 

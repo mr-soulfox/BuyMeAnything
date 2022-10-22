@@ -20,7 +20,7 @@ export function EmailInputBox() {
 			return
 		}
 
-		setValue(localStorage.getItem('form-e-mail') || '')
+		setValue(sessionStorage.getItem('form-e-mail') || '')
 		setValid(false)
 		return
 	}, [value, valid])
@@ -58,7 +58,7 @@ export function EmailInputBox() {
 						ev.target.parentElement!.style.boxShadow = 'none'
 					}}
 					onChange={(ev) => {
-						localStorage.setItem(`form-e-mail`, ev.target.value)
+						sessionStorage.setItem(`form-e-mail`, ev.target.value)
 						dispatch(
 							setReduxValue(
 								JSON.stringify({
