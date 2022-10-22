@@ -36,6 +36,7 @@
     "@storybook/builder-vite": "^0.2.4",
     "@storybook/react": "^6.5.12",
     "@storybook/testing-library": "^0.0.13",
+    "@testing-library/react": "^13.4.0",
     "@types/axios": "^0.14.0",
     "@types/jest": "^29.1.2",
     "@types/node-sass": "^4.11.3",

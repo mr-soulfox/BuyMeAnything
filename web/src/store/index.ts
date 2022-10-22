@@ -1,9 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit'
 import inputReducer from './slice/inputSlice'
+import accountReducer from './slice/accountSlice'
 
 export const store = configureStore({
 	reducer: {
 		input: inputReducer,
+		account: accountReducer,
 	},
 })
 
