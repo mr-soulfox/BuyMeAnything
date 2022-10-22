@@ -35,9 +35,11 @@ export function ResetPassword() {
 							</div>
 
 							<div className='reset-description-container'>
-								<span className='reset-title'>Forgot your password?</span>
+								<span className='reset-title'>Verifying Code</span>
 								<span className='reset-description'>
-									Enter your email and we will send you a reset code
+									{valid
+										? 'Your code is valid'
+										: 'Your code is invalid! Please, tru again.'}
 								</span>
 							</div>
 						</div>
@@ -48,6 +50,7 @@ export function ResetPassword() {
 							confirmCode={String(confirmCode)}
 							id={Number(id)}
 							valid={valid}
+							changeValid={setValid}
 						/>
 					</main>
 				</div>

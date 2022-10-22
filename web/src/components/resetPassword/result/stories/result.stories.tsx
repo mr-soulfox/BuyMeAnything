@@ -1,4 +1,5 @@
 import {Meta} from '@storybook/react'
+import {MemoryRouter} from 'react-router-dom'
 import {ResultResetPassword} from '..'
 
 export default {
@@ -19,6 +20,13 @@ export default {
 			defaultValue: true,
 		},
 	},
+	decorators: [
+		(Story) => (
+			<MemoryRouter>
+				<Story />
+			</MemoryRouter>
+		),
+	],
 } as Meta
 
 export const Default = {}

@@ -1,14 +1,24 @@
+import {useNavigate} from 'react-router-dom'
+import './style/index.scss'
+
 interface ResultProps {
 	confirmCode: string
 	id: number
 	valid: boolean
+	changeValid: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export function ResultResetPassword(props: ResultProps) {
+	const navigate = useNavigate()
+
 	return (
-		<div>
-			{props.confirmCode}, {props.id} <br />
-			{props.valid ? 'valid code' : 'invalid code'}
-		</div>
+		<button
+			className='result-button'
+			onClick={() => {
+				navigate(props.valid ? '/sign/in' : '/forgot-password')
+			}}
+		>
+			{props.valid ? 'go to sign-in' : 'resend code'}
+		</button>
 	)
 }
