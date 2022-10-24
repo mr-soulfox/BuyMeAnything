@@ -10,3 +10,6 @@
 #/.pnp.*
 
 test.spec.ts
+.env
+
+*.hbs.json
