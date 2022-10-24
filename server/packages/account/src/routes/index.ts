@@ -1,7 +1,7 @@
 import cluster from 'cluster'
 import express from 'express'
 import {logRequest} from '../middleware/log'
-import {Email, emailInstance, EmailParams} from '../utils/mail'
+import {verifyMail} from './modules/verifyMail'
 
 export const routes = express.Router()
 
@@ -16,38 +16,14 @@ routes.get('/health', (req, res) => {
 })
 
 routes.post('/verify-mail/:code', async (req, res) => {
-	if (req.body.verify) {
-		try {
-			const params: EmailParams = {
-				type: 'email',
-				to: req.body.email,
-				subject: 'Verify email',
-			}
-
-			const email = new Email(params)
-			await email.sendMail()
-			res.json({
-				complete: true,
-			})
-		} catch (err) {
-			console.log(err)
-			res.status(500).json({
-				error: 500,
-				msg: 'Internal error, try again later.',
-			})
-		}
-
-		cluster.worker?.kill()
-		return
-	}
-
 	const params = {
-		key: req.body.email,
+		verify: req.body.verify,
+		to: req.body.email,
 		code: req.params.code,
 	}
 
-	const result = await emailInstance.verifyCode(params)
-	res.status(200).json(result)
+	const response = await verifyMail(params)
+	res.status(response?.error || 200).json(response)
 
 	cluster.worker?.kill()
 })
