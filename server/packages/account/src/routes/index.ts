@@ -28,17 +28,21 @@ routes.post('/verify-mail/:code', async (req, res) => {
 	cluster.worker?.kill()
 })
 
+routes.post('/forgot-password', (req, res) => {
+	res.send('ForgotPassword')
+})
+
 routes.post('/create', (req, res) => {
-	res.send()
+	res.send('create')
 	cluster.worker?.kill()
 })
 
 routes.put('/modify', (req, res) => {
-	res.send()
+	res.send('modify')
 	cluster.worker?.kill()
 })
 
 routes.delete('/delete', (req, res) => {
-	res.send()
+	res.send('delete')
 	cluster.worker?.kill()
 })

@@ -39,8 +39,8 @@ export async function verifyMail(params: VerifyParams): Promise<VerifyResponsePa
 	}
 
 	const verifyParams = {
-		key: params.to,
-		code: params.code,
+		key: params.code,
+		mail: params.to,
 	}
 
 	const result = await emailInstance.verifyCode(verifyParams)

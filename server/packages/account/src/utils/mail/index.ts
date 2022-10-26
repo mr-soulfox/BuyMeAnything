@@ -35,7 +35,7 @@ export class Email {
 	}
 
 	private generateLink(): string {
-		const link = process.env.WEB_URL || 'http://127.0.0.1:5173/sign/up?confirmCode='
+		const link = String(process.env.WEB_URL)
 		this.code = randomstring.generate({
 			length: 7,
 			charset: 'alphanumeric',
@@ -61,18 +61,18 @@ export class Email {
 		})
 
 		redisClient.setValue({
-			key: String(this.mail?.to),
-			value: String(this.code),
+			key: String(this.code),
+			value: String(this.mail?.to),
 			exp: 1,
 		})
 	}
 
-	public async verifyCode(params: {key: string; code: string}) {
+	public async verifyCode(params: {key: string; mail: string}) {
 		const result = await redisClient.getValue(params.key)
 
 		return {
 			...result,
-			verified: params.code === result.value,
+			verified: params.mail === result.value,
 		}
 	}
 }
