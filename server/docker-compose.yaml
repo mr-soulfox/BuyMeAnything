@@ -29,7 +29,7 @@ services:
   bma-main:
     container_name: bma-main
     build: 
-      dockerfile: ./packages/main/Dockerfile
+      context: ./packages/main
     image: bma-main:latest
     command: yarn start	
     depends_on:
@@ -44,7 +44,7 @@ services:
   bma-account:
     container_name: bma-account
     build: 
-      dockerfile: ./packages/account/Dockerfile
+      context: ./packages/account
     image: bma-account:latest
     command: yarn start	
     environment:
@@ -63,7 +63,7 @@ services:
   bma-payment:
     container_name: bma-payment
     build: 
-      dockerfile: ./packages/payment/Dockerfile
+      context: ./packages/payment
     image: bma-payment:latest
     command: yarn start	
     depends_on:
@@ -78,7 +78,7 @@ services:
   bma-social:
     container_name: bma-social
     build: 
-      dockerfile: ./packages/social/Dockerfile
+      context: ./packages/social
     image: bma-social:latest
     command: yarn start	
     depends_on:

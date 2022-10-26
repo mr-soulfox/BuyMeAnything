@@ -3,7 +3,7 @@ FROM node:19-slim
 ENV HOME=/usr/bma/payment
 WORKDIR ${HOME}/src
 
-COPY package.json .
+COPY ./package.json .
 RUN yarn && yarn cache clean
 
 COPY . .
