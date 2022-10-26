@@ -1,4 +1,4 @@
-import {Email, emailInstance, EmailParams} from 'src/utils/mail'
+import {Email, emailInstance, EmailParams} from '../../utils/mail'
 
 interface VerifyParams {
 	verify: boolean

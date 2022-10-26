@@ -7,6 +7,8 @@
   ],
   "scripts": {
     "start": "lerna run start",
+    "docker:up": "docker compose up",
+    "docker:down": "docker compose down",
     "test": "lerna run test",
     "build": "lerna run build",
     "typecheck": "lerna exec -- tsc --noEmit",
