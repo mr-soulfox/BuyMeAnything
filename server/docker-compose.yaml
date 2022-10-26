@@ -4,14 +4,25 @@ networks:
   proxy:
     driver: bridge
 
+volumes:
+  db:
+    driver: local
+  cache:
+    driver: local
+
 services:
-  nginx: 
+  reverse-proxy: 
     image: nginx:alpine
     container_name: reverse-proxy
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - 8080:80
+    links:
+      - bma-main:bma-main
+      - bma-account:bma-account
+      - bma-payment:bma-payment
+      - bma-social:bma-social
     networks:
       - proxy
     
@@ -20,6 +31,13 @@ services:
     build: 
       dockerfile: ./packages/main/Dockerfile
     image: bma-main:latest
+    command: yarn start	
+    depends_on:
+      - db
+      - cache
+    links:
+      - db
+      - cache
     networks:
       - proxy
   
@@ -28,6 +46,17 @@ services:
     build: 
       dockerfile: ./packages/account/Dockerfile
     image: bma-account:latest
+    command: yarn start	
+    environment:
+      - REDIS_HOST=cache
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=BMARedis
+    depends_on:
+      - db
+      - cache
+    links:
+      - db
+      - cache
     networks:
       - proxy
   
@@ -36,6 +65,13 @@ services:
     build: 
       dockerfile: ./packages/payment/Dockerfile
     image: bma-payment:latest
+    command: yarn start	
+    depends_on:
+      - db
+      - cache
+    links:
+      - db
+      - cache
     networks:
       - proxy
   
@@ -44,5 +80,38 @@ services:
     build: 
       dockerfile: ./packages/social/Dockerfile
     image: bma-social:latest
+    command: yarn start	
+    depends_on:
+      - db
+      - cache
+    links:
+      - db
+      - cache
+    networks:
+      - proxy
+  
+  db:
+    container_name: bma-database
+    image: postgres:alpine
+    restart: always
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - proxy
+  
+  cache:
+    container_name: bma-redis
+    image: redis:alpine
+    restart: always
+    ports:
+      - 6379:6379
+    command: redis-server --save 20 1 --loglevel warning --requirepass BMARedis
+    volumes:
+      - cache:/data
     networks:
       - proxy

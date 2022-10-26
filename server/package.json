@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "start": "lerna run start",
-    "docker:up": "docker compose up",
+    "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
     "test": "lerna run test",
     "build": "lerna run build",
