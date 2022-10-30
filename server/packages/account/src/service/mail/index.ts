@@ -10,6 +10,7 @@ interface SendMailParams {
 	variables?: {
 		email?: string
 		link?: string
+		code?: string
 	}
 }
 

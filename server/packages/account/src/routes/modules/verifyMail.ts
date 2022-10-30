@@ -1,4 +1,5 @@
 import {Email, emailInstance, EmailParams} from '../../utils/mail'
+import {PostgresClient} from '../../database/client/sql'
 
 interface VerifyParams {
 	verify: boolean
@@ -16,6 +17,17 @@ interface VerifyResponseParams {
 }
 
 export async function verifyMail(params: VerifyParams): Promise<VerifyResponseParams> {
+	const pgClient = new PostgresClient()
+	const exist = await pgClient.exist(params.to)
+
+	if (exist) {
+		return {
+			status: false,
+			verified: true,
+			msg: 'Email exist',
+		}
+	}
+
 	if (params.verify) {
 		try {
 			const emailParams: EmailParams = {

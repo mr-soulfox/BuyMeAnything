@@ -34,7 +34,16 @@ export class Email {
 		this.type = String(params?.type)
 	}
 
-	private generateLink(): string {
+	public generateLink(change?: boolean): string {
+		if (change) {
+			this.code = randomstring.generate({
+				length: 4,
+				charset: 'numeric',
+			})
+
+			return ''
+		}
+
 		const link = String(process.env.WEB_URL)
 		this.code = randomstring.generate({
 			length: 7,
@@ -44,7 +53,7 @@ export class Email {
 		return `${link}${this.code}`
 	}
 
-	public async sendMail() {
+	public async sendMail(change?: boolean) {
 		await sendMailService({
 			...this.mail,
 			type: String(this.type),
@@ -55,9 +64,12 @@ export class Email {
 				'service',
 				'mail',
 				'html',
-				'create',
+				`${!change ? 'create' : 'changeMail'}`,
 				'index.hbs'
 			),
+			variables: {
+				code: this.code,
+			},
 		})
 
 		redisClient.setValue({

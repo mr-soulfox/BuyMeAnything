@@ -4,9 +4,11 @@ ENV HOME=/usr/bma/account
 WORKDIR ${HOME}/src
 
 COPY ./package.json .
-RUN yarn && yarn cache clean
-
+COPY ./src/database/prisma ./prisma/
 COPY . .
+
+RUN yarn && yarn cache clean
+RUN npx prisma generate --schema=./prisma/schema.prisma
 
 EXPOSE 8181
 

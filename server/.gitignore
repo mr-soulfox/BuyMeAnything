@@ -13,3 +13,4 @@ test.spec.ts
 .env
 
 *.hbs.json
+migrations
