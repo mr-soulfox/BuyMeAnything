@@ -68,6 +68,7 @@ export class Email {
 				'index.hbs'
 			),
 			variables: {
+				...this.mail?.variables,
 				code: this.code,
 			},
 		})
