@@ -1,5 +1,6 @@
 import cluster from 'cluster'
 import express from 'express'
+import {deleteUser} from '../database/client/nosql/controller/user/delete'
 import {Modify, PostgresClient} from '../database/client/sql'
 import {logRequest} from '../middleware/log'
 import {createAccount} from './modules/create'
@@ -80,9 +81,12 @@ routes.delete('/delete', async (req, res) => {
 	const response = await pgClient.delete(req.body.email)
 	await pgClient.disconnect()
 
-	res.json({
-		deleted: response,
-	})
+	const deleted = await deleteUser(req.body.email)
 
+	res.json({
+		deleted: response == deleted,
+		mongo: deleted,
+		db: response,
+	})
 	cluster.worker?.kill()
 })

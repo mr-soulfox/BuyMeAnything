@@ -1,7 +1,7 @@
 import {PrismaClient} from '@prisma/client'
-import {create as createFn} from './methods/create'
-import {modify as modifyFn} from './methods/modify'
-import {verifyExist} from './utils/verifyExist'
+import {create as createFn} from './controller/create'
+import {modify as modifyFn} from './controller/modify'
+import {verifyExist} from './controller/verifyExist'
 
 export interface Create {
 	email: string

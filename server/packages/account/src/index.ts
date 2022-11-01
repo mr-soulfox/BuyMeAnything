@@ -4,12 +4,15 @@ import {routes} from './routes'
 import dotenv from 'dotenv'
 import cluster from 'cluster'
 import os from 'os'
+import mongoose from 'mongoose'
 
 dotenv.config({path: '../.env'})
 
 const port = process.env.PORT || 3001
 const app = express()
 const numCpu = os.cpus().length
+
+mongoose.connect(String(process.env.MONGO_DB_URL))
 
 app.use(express.json())
 app.use(cors({origin: process.env.CORS_ORIGIN || '*'}))

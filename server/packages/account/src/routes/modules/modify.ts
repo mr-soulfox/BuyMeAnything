@@ -1,6 +1,7 @@
 import {Modify, PostgresClient} from '../../database/client/sql'
 import crypto from 'crypto'
 import {Email, emailInstance, EmailParams} from '../../utils/mail'
+import {updateUser} from '../../database/client/nosql/controller/user/update'
 
 export async function modifyAccount(
 	props: Modify,
@@ -47,6 +48,27 @@ export async function modifyAccount(
 
 		const response = await pgClient.modify(props, newEmail)
 		await pgClient.disconnect()
+
+		if (response.status) {
+			const result = await updateUser({
+				search: {
+					email: props.email,
+				},
+				data: {
+					...props,
+					email: newEmail || props.email,
+				},
+			})
+
+			return {
+				status: response.status == result.status,
+				data: {
+					database: response,
+					mongoCache: result.data,
+				},
+			}
+		}
+
 		return response
 	}
 

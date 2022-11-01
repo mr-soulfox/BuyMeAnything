@@ -7,6 +7,8 @@ networks:
 volumes:
   db:
     driver: local
+  mongo:
+    driver: local
   cache:
     driver: local
 
@@ -52,6 +54,7 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=BMARedis
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+      - MONGO_DATABASE_URL=mongodb://root:example@mongo:27017/account
     depends_on:
       - db
       - cache
@@ -105,6 +108,20 @@ services:
     networks:
       - proxy
   
+  mongo:
+    container_name: bma-mongodb
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    volumes:
+      - mongo:/var/lib/mongodb/data
+    networks:
+      - proxy
+
   cache:
     container_name: bma-redis
     image: redis:alpine
