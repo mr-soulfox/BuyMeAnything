@@ -59,10 +59,14 @@ export function InputBox(props: inputBoxProps) {
 					setActualValue(ev.target.value)
 					sessionStorage.setItem(`form-${props.type}`, ev.target.value)
 
+					if (props.type === 'e-mail') {
+						localStorage.setItem('form-e-mail', ev.target.value)
+					}
+
 					dispatch(
 						setValue(
 							JSON.stringify({
-								type: props.type,
+								typeInput: props.type,
 								value: ev.target.value,
 							})
 						)
