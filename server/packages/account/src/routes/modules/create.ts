@@ -2,8 +2,22 @@ import {PostgresClient} from '../../database/client/sql'
 import crypto from 'crypto'
 import {createUser} from '../../database/client/nosql/controller/user/create'
 import {findUser} from '../../database/client/nosql/controller/user/find'
+import {User} from '@prisma/client'
 
-export async function createAccount(email: string, password: string) {
+interface CreateAccountPromise {
+	status?: boolean
+	exist?: boolean
+	msg?: string
+	data?: {
+		database?: User | null
+		mongoCache?: any | null
+	}
+}
+
+export async function createAccount(
+	email: string,
+	password: string
+): Promise<CreateAccountPromise> {
 	const pgClient = new PostgresClient()
 
 	const exist = await pgClient.exist(email)
@@ -49,5 +63,10 @@ export async function createAccount(email: string, password: string) {
 		}
 	}
 
-	return response
+	return {
+		status: response.status,
+		data: {
+			database: response.data,
+		},
+	}
 }

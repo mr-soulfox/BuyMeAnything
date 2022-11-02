@@ -55,8 +55,21 @@ routes.post('/forgot-password', async (req, res) => {
 
 routes.post('/create', async (req, res) => {
 	const response = await createAccount(req.body.email, req.body.password)
-	res.send(response)
 
+	if (response.data != null) {
+		const data = response.data.mongoCache
+		res.redirect(
+			301,
+			`${process.env.MAIN_API_URL}/login?cached=true&data=${encodeURIComponent(
+				JSON.stringify(data)
+			)}`
+		)
+		cluster.worker?.kill()
+
+		return
+	}
+
+	res.json(response)
 	cluster.worker?.kill()
 })
 

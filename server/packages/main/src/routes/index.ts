@@ -6,7 +6,14 @@ export const routes = express.Router()
 
 routes.use(logRequest)
 
-routes.get('/', (req, res) => {
-	res.send('<h1>HI from Main API callout' + process.pid + '</h1>')
+routes.get('/health', (req, res) => {
+	res.json({
+		status: true,
+		msg: `HI from account API - ${process.pid}`,
+	})
 	cluster.worker?.kill()
+})
+
+routes.get('/login', (req, res) => {
+	res.json(JSON.parse(String(req.query.data)))
 })
