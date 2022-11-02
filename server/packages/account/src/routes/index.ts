@@ -4,6 +4,7 @@ import {deleteUser} from '../database/client/nosql/controller/user/delete'
 import {Modify, PostgresClient} from '../database/client/sql'
 import {logRequest} from '../middleware/log'
 import {createAccount} from './modules/create'
+import {forgotPassword} from './modules/forgot'
 import {modifyAccount} from './modules/modify'
 import {verifyMail} from './modules/verifyMail'
 
@@ -32,8 +33,23 @@ routes.post('/verify-mail/:code', async (req, res) => {
 	cluster.worker?.kill()
 })
 
-routes.post('/forgot-password', (req, res) => {
-	res.send('ForgotPassword')
+routes.post('/forgot-password', async (req, res) => {
+	const forgotParams = {
+		email: req.body.email,
+		password: req.body.password,
+		verified: req.body.verified,
+		code: req.body.code,
+	}
+
+	const response = await forgotPassword(forgotParams)
+
+	if (response?.redirect) {
+		res.redirect(308, `${process.env.BASE_URL}modify`)
+		cluster.worker?.kill()
+		return
+	}
+
+	res.json(response)
 	cluster.worker?.kill()
 })
 
@@ -44,19 +60,21 @@ routes.post('/create', async (req, res) => {
 	cluster.worker?.kill()
 })
 
-routes.put('/modify', async (req, res) => {
+routes.post('/modify', async (req, res) => {
 	const bodyData: Modify = {
 		email: req.body.email,
 		password: req.body.password,
 		userAt: req.body.userAt,
 		username: req.body.username,
+		social: req.body.socialData,
 	}
 
 	const response = await modifyAccount(
 		bodyData,
 		req.body.newEmail,
 		req.body.verify,
-		req.body.code
+		req.body.code,
+		req.body.social
 	)
 	res.json(response)
 

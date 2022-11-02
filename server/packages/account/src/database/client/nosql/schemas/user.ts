@@ -22,6 +22,16 @@ const User = new mongoose.Schema({
 		unique: true,
 		required: true,
 	},
+	socialLogin: {
+		social: {
+			type: String,
+			default: '',
+		},
+		code: {
+			type: String,
+			default: '',
+		},
+	},
 	createdAt: {
 		type: Date,
 		default: Date.now,

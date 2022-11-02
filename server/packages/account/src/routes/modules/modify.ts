@@ -2,12 +2,14 @@ import {Modify, PostgresClient} from '../../database/client/sql'
 import crypto from 'crypto'
 import {Email, emailInstance, EmailParams} from '../../utils/mail'
 import {updateUser} from '../../database/client/nosql/controller/user/update'
+import {findUser} from '../../database/client/nosql/controller/user/find'
 
 export async function modifyAccount(
 	props: Modify,
 	newEmail?: string,
 	verify?: string,
-	code?: string
+	code?: string,
+	social?: boolean
 ) {
 	const pgClient = new PostgresClient()
 
@@ -17,6 +19,24 @@ export async function modifyAccount(
 		return {
 			exist: !exist,
 			msg: 'Email exist in database',
+		}
+	}
+
+	if (social) {
+		await updateUser({
+			search: {
+				email: props.email,
+			},
+			data: {
+				socialLogin: props.social,
+			},
+		})
+
+		const result = await findUser(props.email)
+
+		return {
+			status: result.status,
+			data: result.data,
 		}
 	}
 
@@ -81,7 +101,7 @@ export async function modifyAccount(
 
 		const email = new Email(emailParams)
 		email.generateLink(true)
-		await email.sendMail(true)
+		await email.sendMail('', true)
 		return {
 			complete: true,
 		}

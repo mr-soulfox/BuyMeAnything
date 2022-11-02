@@ -34,7 +34,7 @@ export class Email {
 		this.type = String(params?.type)
 	}
 
-	public generateLink(change?: boolean): string {
+	public generateLink(change?: boolean, forgot?: boolean): string {
 		if (change) {
 			this.code = randomstring.generate({
 				length: 4,
@@ -44,7 +44,16 @@ export class Email {
 			return ''
 		}
 
-		const link = String(process.env.WEB_URL)
+		if (forgot) {
+			this.code = randomstring.generate({
+				length: 6,
+				charset: 'numeric',
+			})
+
+			return String(process.env.WEB_URL) + '/reset/' + this.code
+		}
+
+		const link = String(process.env.WEB_URL) + '/sign/up?confirmCode='
 		this.code = randomstring.generate({
 			length: 7,
 			charset: 'alphanumeric',
@@ -53,7 +62,7 @@ export class Email {
 		return `${link}${this.code}`
 	}
 
-	public async sendMail(change?: boolean) {
+	public async sendMail(link?: string, change?: boolean, forgot?: boolean) {
 		await sendMailService({
 			...this.mail,
 			type: String(this.type),
@@ -64,12 +73,13 @@ export class Email {
 				'service',
 				'mail',
 				'html',
-				`${!change ? 'create' : 'changeMail'}`,
+				`${!change ? 'create' : forgot ? 'forgotPassword' : 'changeMail'}`,
 				'index.hbs'
 			),
 			variables: {
 				...this.mail?.variables,
 				code: this.code,
+				link: link || this.mail?.variables.link,
 			},
 		})
 

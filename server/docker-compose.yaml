@@ -55,6 +55,7 @@ services:
       - REDIS_PASSWORD=BMARedis
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
       - MONGO_DATABASE_URL=mongodb://root:example@mongo:27017/account
+      - BASE_URL=/account/
     depends_on:
       - db
       - cache

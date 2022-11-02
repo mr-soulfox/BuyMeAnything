@@ -28,7 +28,7 @@ export async function verifyMail(params: VerifyParams): Promise<VerifyResponsePa
 		}
 	}
 
-	if (params.verify) {
+	if (params.verify && !exist) {
 		try {
 			const emailParams: EmailParams = {
 				type: 'email',

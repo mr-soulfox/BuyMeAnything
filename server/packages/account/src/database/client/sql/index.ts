@@ -15,6 +15,10 @@ export interface Modify {
 	username?: string
 	userAt?: string
 	salt?: string
+	social?: {
+		social?: string
+		code?: string
+	}
 }
 
 export class PostgresClient {

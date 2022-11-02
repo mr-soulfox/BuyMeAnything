@@ -10,6 +10,10 @@ interface UpdateParams {
 		username?: string
 		userAt?: string
 		salt?: string
+		socialLogin?: {
+			social?: string
+			code?: string
+		}
 	}
 }
 
