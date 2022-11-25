@@ -1,5 +1,4 @@
 import {Email, emailInstance, EmailParams} from '../../utils/mail'
-import {PostgresClient} from '../../database/client/sql'
 
 interface ForgotParams {
 	email: string
@@ -17,41 +16,31 @@ interface ForgotResponse {
 }
 
 export async function forgotPassword(params: ForgotParams): Promise<ForgotResponse> {
-	const pgClient = new PostgresClient()
-	const exist = await pgClient.exist(params.email)
+	if (params.verified) {
+		const verifyParams = {
+			key: params.code,
+			mail: params.email,
+		}
 
-	if (exist) {
+		const result = await emailInstance.verifyCode(verifyParams)
+
 		return {
-			status: false,
-			msg: 'Email exist',
+			status: result.status,
+			redirect: result.verified == result.status,
 		}
 	}
 
-	if (!exist) {
-		if (params.verified) {
-			const verifyParams = {
-				key: params.code,
-				mail: params.email,
-			}
-
-			const result = await emailInstance.verifyCode(verifyParams)
-
-			return {
-				status: result.status,
-				redirect: result.verified == result.status,
-			}
-		}
-
-		const emailParams: EmailParams = {
-			type: 'email',
-			to: params.email,
-			subject: 'Change password',
-		}
-
-		const email = new Email(emailParams)
-		const link = email.generateLink(false, true)
-		await email.sendMail(link, false, true)
+	const emailParams: EmailParams = {
+		type: 'email',
+		to: params.email,
+		subject: 'Change password',
 	}
 
-	return {}
+	const email = new Email(emailParams)
+	const link = email.generateLink(false, true)
+	await email.sendMail(link, false, true)
+
+	return {
+		status: true,
+	}
 }

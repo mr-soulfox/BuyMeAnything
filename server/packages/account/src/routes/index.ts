@@ -60,9 +60,7 @@ routes.post('/create', async (req, res) => {
 		const data = response.data.mongoCache
 		res.redirect(
 			301,
-			`${process.env.MAIN_API_URL}/login?cached=true&data=${encodeURIComponent(
-				JSON.stringify(data)
-			)}`
+			`/main/login?cached=true&data=${encodeURIComponent(JSON.stringify(data))}`
 		)
 		cluster.worker?.kill()
 

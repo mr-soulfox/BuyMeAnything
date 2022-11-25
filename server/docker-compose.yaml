@@ -54,14 +54,19 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=BMARedis
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
-      - MONGO_DATABASE_URL=mongodb://root:example@mongo:27017/account
+      - MONGO_DB_URL=mongodb://mongo:27017/account
       - BASE_URL=/account/
+      - PORT=8181
+      - WEB_URL=http://127.0.0.1:5173
+      - MAIN_API_URL=http://localhost:8181
     depends_on:
       - db
       - cache
+      - mongo
     links:
       - db
       - cache
+      - mongo
     networks:
       - proxy
   
@@ -99,9 +104,9 @@ services:
     container_name: bma-database
     image: postgres:alpine
     restart: always
-    environment: 
-      - POSTGRES_USER=postgres
+    environment:
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
     ports:
       - 5432:5432
     volumes:
@@ -115,9 +120,6 @@ services:
     restart: always
     ports:
       - 27017:27017
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=example
     volumes:
       - mongo:/var/lib/mongodb/data
     networks:

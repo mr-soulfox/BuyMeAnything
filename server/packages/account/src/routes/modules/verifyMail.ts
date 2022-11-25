@@ -20,15 +20,7 @@ export async function verifyMail(params: VerifyParams): Promise<VerifyResponsePa
 	const pgClient = new PostgresClient()
 	const exist = await pgClient.exist(params.to)
 
-	if (exist) {
-		return {
-			status: false,
-			verified: true,
-			msg: 'Email exist',
-		}
-	}
-
-	if (params.verify && !exist) {
+	if (params.verify && exist) {
 		try {
 			const emailParams: EmailParams = {
 				type: 'email',

@@ -42,13 +42,17 @@ export class PostgresClient {
 	}
 
 	public async exist(email: string) {
-		const existThisUser = await this.prisma.user.findUnique({
-			where: {
-				email: email,
-			},
-		})
+		try {
+			const existThisUser = await this.prisma.user.findUnique({
+				where: {
+					email: email,
+				},
+			})
 
-		return existThisUser === null
+			return existThisUser === null
+		} catch (e) {
+			return true
+		}
 	}
 
 	public async modify(props: Modify, newEmail?: string) {
