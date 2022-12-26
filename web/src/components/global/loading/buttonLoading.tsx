@@ -1,6 +1,6 @@
 import {Player, Controls} from '@lottiefiles/react-lottie-player'
 
-export function ButtonLoading() {
+export function ButtonLoading(loading: any) {
 	return (
 		<>
 			<Player

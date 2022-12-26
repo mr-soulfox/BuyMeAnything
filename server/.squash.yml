@@ -1,0 +1,11 @@
+deployment:
+  BuyMeAnything:
+    filename:
+      ./docker-compose.yaml
+    context_path:
+      ./
+    ready_wait:
+      3000
+    vm_size:
+      2GB
+    

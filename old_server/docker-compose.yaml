@@ -1,0 +1,138 @@
+version: "3.9"
+
+networks:
+  proxy:
+    driver: bridge
+
+volumes:
+  db:
+    driver: local
+  mongo:
+    driver: local
+  cache:
+    driver: local
+
+services:
+  reverse-proxy: 
+    image: nginx:alpine
+    container_name: reverse-proxy
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 8080:80
+    links:
+      - bma-main:bma-main
+      - bma-account:bma-account
+      - bma-payment:bma-payment
+      - bma-social:bma-social
+    networks:
+      - proxy
+    
+  bma-main:
+    container_name: bma-main
+    build: 
+      context: ./packages/main
+    image: bma-main:latest
+    command: yarn start	
+    depends_on:
+      - db
+      - cache
+    links:
+      - db
+      - cache
+    networks:
+      - proxy
+  
+  bma-account:
+    container_name: bma-account
+    build: 
+      context: ./packages/account
+    image: bma-account:latest
+    command: yarn start	
+    environment:
+      - REDIS_HOST=cache
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=BMARedis
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+      - MONGO_DB_URL=mongodb://mongo:27017/account
+      - BASE_URL=/account/
+      - PORT=8181
+      - WEB_URL=http://127.0.0.1:5173
+      - MAIN_API_URL=http://localhost:8181
+    depends_on:
+      - db
+      - cache
+      - mongo
+    links:
+      - db
+      - cache
+      - mongo
+    networks:
+      - proxy
+  
+  bma-payment:
+    container_name: bma-payment
+    build: 
+      context: ./packages/payment
+    image: bma-payment:latest
+    command: yarn start	
+    depends_on:
+      - db
+      - cache
+    links:
+      - db
+      - cache
+    networks:
+      - proxy
+  
+  bma-social:
+    container_name: bma-social
+    build: 
+      context: ./packages/social
+    image: bma-social:latest
+    command: yarn start	
+    depends_on:
+      - db
+      - cache
+    links:
+      - db
+      - cache
+    networks:
+      - proxy
+  
+  db:
+    container_name: bma-database
+    image: postgres:alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - proxy
+  
+  mongo:
+    container_name: bma-mongodb
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo:/var/lib/mongodb/data
+    networks:
+      - proxy
+
+  cache:
+    container_name: bma-redis
+    image: redis:alpine
+    restart: always
+    ports:
+      - 6379:6379
+    command: redis-server --save 20 1 --loglevel warning --requirepass BMARedis
+    volumes:
+      - cache:/data
+    networks:
+      - proxy
